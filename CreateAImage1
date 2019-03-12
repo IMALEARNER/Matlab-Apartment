@@ -1,0 +1,11 @@
+A31=eye(12);
+A32=rot90(A31);
+B3=ones(1,12);
+C3=vertcat(A31,B3);
+D3=vertcat(C3,A32);
+E3=vertcat(A32,B3);
+F3=vertcat(E3,A31);
+G3=ones(25,1);
+H3=horzcat(D3,G3);
+I3=horzcat(H3,F3);
+imshow(I3)
