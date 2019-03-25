@@ -1,0 +1,14 @@
+close all;
+clear all;
+figure;
+
+[X,Y]=meshgrid(1:440,1:290);
+ang=45;
+p=6.5;
+phase=pi/2;
+c=1;
+
+sigma=60; 
+Ga1=exp(-1/(sigma^2*2)*((X-145).^2+(Y-145).^2)); 
+Ga2=exp(-1/(sigma^2*2)*((X-295).^2+(Y-145).^2)); 
+imshow((sin((sind(ang)*X+cosd(ang)*Y)*2*pi/p+phase)*c+1)/2.*Ga1+(sin((sind(ang)*X+cosd(ang)*Y)*2*pi/p+phase)*c+1)/2.*Ga2);
