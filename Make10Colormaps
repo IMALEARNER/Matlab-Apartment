@@ -1,0 +1,41 @@
+clf;     
+clear;
+
+Screen('Preference','SkipSyncTests',1);
+wPtr5=Screen('Openwindow',0,[0,0,0]);
+[x5, y5] = Screen('WindowSize', wPtr5);
+
+v5 = 1:10;
+f5 = diag(v5,0);
+figure('units','normalized','position',[0,0,0.5,0.5.*x5/y5],'visible','off');%去白边
+d5 = imagesc(f5);
+set(gca,'position',[0 0 1 1]);  % clear the white side 
+colors = [[0,0,0];jet(10)];
+colormap(colors);
+axis off;
+axis square;
+
+saveas(gcf,'myfig.jpg');  
+pic51 = imread('myfig.jpg');
+size51 = size(pic51);
+resize_pic51 = imresize(pic51,[1000 size51(2)*1000/size51(1)]);
+
+tex51 = Screen('MakeTexture',wPtr5,resize_pic51);
+Screen('DrawTexture',wPtr5,tex51);
+
+%set the format of words
+Screen('TextSize',wPtr5,18);
+Screen('TextFont',wPtr5,'Arial');
+%start
+for i = 1:10
+    word5 = ['square',num2str(i)];
+    %locations of words
+    dx5 = 100*(-6+i)+50;
+    dy5 = 100*(-6+i)+50;
+    [nx,ny,textbounds,wordbounds] = DrawFormattedText(wPtr5,word5,0,0,[0,0,0]);
+    DrawFormattedText(wPtr5,word5,0.5*x5+dx5-0.5*(wordbounds(3)+wordbounds(1)),0.5*y5+dy5-0.5*(wordbounds(4)+wordbounds(2)),[0 0 0]);
+end
+Screen(wPtr5,'Flip');
+WaitSecs(3);
+%%
+Screen('CloseAll');
